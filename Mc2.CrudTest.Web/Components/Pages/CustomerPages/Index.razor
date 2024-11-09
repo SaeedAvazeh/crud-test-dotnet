@@ -1,10 +1,11 @@
 ﻿@page "/customers"
+@inject IDbContextFactory<Mc2.CrudTest.Web.Data.ApplicationDbContext> DbFactory
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
-@using Mc2.CrudTest.Web.Data
+@using Mc2.CrudTest.Web
 @using Mc2.CrudTest.Web.Data
 @implements IAsyncDisposable
-@inject IDbContextFactory<Mc2.CrudTest.Web.Data.ApplicationDbContext> DbFactory
+@rendermode InteractiveServer
 
 <PageTitle>Index</PageTitle>
 
@@ -14,13 +15,19 @@
     <a href="customers/create">Create New</a>
 </p>
 
-<QuickGrid Class="table" Items="context.Customer">
-    <PropertyColumn Property="customer => customer.FirstName" />
-    <PropertyColumn Property="customer => customer.LastName" />
-    <PropertyColumn Property="customer => customer.DateOfBirth" />
-    <PropertyColumn Property="customer => customer.PhoneNumber" />
-    <PropertyColumn Property="customer => customer.Email" />
-    <PropertyColumn Property="customer => customer.BankAccountNumber" />
+<QuickGrid Class="table" Items="FilteredCustomers" Pagination="paginationState">
+    <PropertyColumn Property="customer => customer.FirstName" Title="First Name" />
+    <PropertyColumn Property="customer => customer.LastName" Title="Last Name">
+        <ColumnOptions>
+            <div>
+                <input type="search" autofocus @bind="LastNameFilter" @bind:event="oninput" />
+            </div>
+        </ColumnOptions>
+    </PropertyColumn>
+    <PropertyColumn Property="customer => customer.DateOfBirth" Title="Date of Birth" />
+    <PropertyColumn Property="customer => customer.PhoneNumber" Title=" Phone Number" />
+    <PropertyColumn Property="customer => customer.Email" Title="Email Address" />
+    <PropertyColumn Property="customer => customer.BankAccountNumber" Title="Bank Account Number" />
 
     <TemplateColumn Context="customer">
         <a href="@($"customers/edit?id={customer.Id}")">Edit</a> |
@@ -28,6 +35,8 @@
         <a href="@($"customers/delete?id={customer.Id}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
+
+<Paginator State="paginationState" />
 
 @code {
     private ApplicationDbContext context = default!;
@@ -38,4 +47,8 @@
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
+    PaginationState paginationState = new() { ItemsPerPage = 10 };
+    string LastNameFilter = string.Empty;
+    IQueryable<Customer> FilteredCustomers => context.Customer.Where(Customer => Customer.LastName!.Contains(LastNameFilter));
 }
