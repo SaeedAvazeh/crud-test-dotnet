@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EmailValidation" Version="1.2.0" />
+    <PackageReference Include="IbanNet" Version="5.16.1" />
+    <PackageReference Include="libphonenumber-csharp" Version="8.13.49" />
+  </ItemGroup>
+
+  <ItemGroup>
     <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>
