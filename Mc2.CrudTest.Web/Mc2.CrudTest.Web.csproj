@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Mc2.CrudTest.Web-0853533e-a922-4f5d-b1eb-6c79b2610194</UserSecretsId>
+    <UserSecretsId>aspnet-Mc2.CrudTest.Web-a73a9dbc-508c-44f2-9998-f67517f4f37b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
