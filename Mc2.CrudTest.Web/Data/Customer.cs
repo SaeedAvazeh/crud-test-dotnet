@@ -1,10 +1,14 @@
 ﻿using EmailValidation;
 using IbanNet;
+using Microsoft.EntityFrameworkCore;
 using PhoneNumbers;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mc2.CrudTest.Web.Data
 {
+    [Index(nameof(Email), IsUnique = true)]
+    [Index(nameof(FirstName), nameof(LastName), nameof(DateOfBirth), IsUnique = true)]
+
     public class Customer
     {
         public int Id { get; set; }
