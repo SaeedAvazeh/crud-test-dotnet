@@ -3,7 +3,7 @@ using System;
 
 #nullable disable
 
-namespace Mc2.CrudTest.Infstructure.Migrations
+namespace Mc2.CrudTest.Web.Migrations
 {
     /// <inheritdoc />
     public partial class CreateIdentitySchema : Migration
